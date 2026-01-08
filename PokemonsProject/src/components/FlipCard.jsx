@@ -3,11 +3,59 @@ import ReactCardFlip from "react-card-flip";
 import pokeballImg from "../imgs/pokeball.avif";
 import charmanderImg from "../imgs/charmander.png";
 
+const mockPokemons = {
+  name: "Bulbasaur",
+  type: ["Grass", "Poison"],
+  total: 318,
+  hp: 45,
+  attack: 49,
+};
 function FlipCard() {
   const [isFlipped, setIsFlipped] = useState(false);
+  const [isMatched, setIsMatched] = useState(false);
+  const [flippedCards, setFlippedCards] = useState([]); // an array of 2 items length, to keep track of the 2 flipped cards
+  const [matchedCards, setMatchedCards] = useState([]); // an array to keep track of matched cards
+
+  function handleClick(e) {
+    // what will this function do?
+    // 1.Toggle the flipped state
+    // 2. check if it is first or second card clicked
+    // 3. if second card, check if it matches the first card
+    // 4. if match, keep them flipped, else flip them back after a delay
+    // 4.1 keep them flipped by setting a state variable 'isMatched' to true
+    // 4.2 flip them back by setting a timeout to change 'isFlipped' back to false
+    // 5. reset the state variables for the next turn
+    //6. disable clicking on other cards when two cards are already flipped and waiting for the timeout to flip back. or isFixed is true.
+    //7. array to keep track of flipped cards
+    //8. array to keep track of matched cards[2 elements]
+    //* ********************
+
+    const target = e.currentTarget;
+
+    // check length of flippedCards array
+    if (flippedCards.length >= 2) {
+      return; // do nothing if already 2 cards are flipped
+    }
+
+    // change the isFlipped state
+    setIsFlipped(!isFlipped);
+
+    // add the card to the FlippedCards array
+    setFlippedCards((prev) => [...prev, target.getAttribute("name")]);
+
+    // check if there are 2 cards flipped
+    if (flippedCards.length === 2) {
+      // check if the cards names match
+      if (flippedCards[0] === flippedCards[1]) {
+      }
+    }
+  }
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div
+      className="flex justify-center items-center h-screen"
+      name={mockPokemons.name}
+    >
       <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
         <div
           key="front"

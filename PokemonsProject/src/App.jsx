@@ -11,7 +11,9 @@ const pokeball = "./src/imgs/pokeball.avif";
 function App() {
   return (
     <>
-      <FlipCard />
+      {mockPokemons.slice(0, 5).map((pokemon) => {
+        <FlipCard />;
+      })}
     </>
   );
 }

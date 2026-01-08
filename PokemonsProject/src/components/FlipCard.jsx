@@ -10,7 +10,7 @@ const mockPokemons = {
   hp: 45,
   attack: 49,
 };
-function FlipCard() {
+function FlipCard(props) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isMatched, setIsMatched] = useState(false);
   const [flippedCards, setFlippedCards] = useState([]); // an array of 2 items length, to keep track of the 2 flipped cards
@@ -42,6 +42,7 @@ function FlipCard() {
 
     // add the card to the FlippedCards array
     setFlippedCards((prev) => [...prev, target.getAttribute("name")]);
+    console.log(flippedCards);
 
     // check if there are 2 cards flipped
     if (flippedCards.length === 2) {
@@ -53,13 +54,14 @@ function FlipCard() {
 
   return (
     <div
-      className="flex justify-center items-center h-screen"
-      name={mockPokemons.name}
+      className="flex justify-center items-center h-60 w-60"
+      name={props.name}
+      key={props.id}
     >
       <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
         <div
           key="front"
-          className="relative w-60 h-60 min-w-[80px] min-h-[80px] max-w-[80px] max-h-[80px] rounded-lg overflow-hidden border border-gray-200 shadow-sm bg-white"
+          className="relative w-full h-full min-w-20 min-h-20 max-w-40 max-h-40 rounded-lg overflow-hidden border border-gray-200 shadow-sm bg-white"
           onClick={() => setIsFlipped(true)}
         >
           {/* THE IMAGE: 'absolute' + 'inset-0' forces it to stay inside the box */}
@@ -84,12 +86,12 @@ function FlipCard() {
 
         <div
           key="back"
-          className="relative w-60 h-60 min-w-[80px] min-h-[80px] max-w-[80px] max-h-[80px] rounded-lg overflow-hidden border border-gray-200 shadow-sm bg-white"
+          className="relative w-60 h-60 min-w-20 min-h-20 max-w-20 max-h-20 rounded-lg overflow-hidden border border-gray-200 shadow-sm bg-white"
           onClick={() => setIsFlipped(false)}
         >
           {/* THE IMAGE: 'absolute' + 'inset-0' forces it to stay inside the box */}
           <img
-            src={charmanderImg}
+            src={props.imageUrl}
             alt="Small card"
             className="absolute inset-0 w-full h-full object-cover"
           />

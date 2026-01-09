@@ -1,15 +1,7 @@
 import React, { useState } from "react";
 import ReactCardFlip from "react-card-flip";
-import pokeballImg from "../imgs/pokeball.avif";
-import charmanderImg from "../imgs/charmander.png";
+import pokeballImg from "../imgs/pokeball.png";
 
-const mockPokemons = {
-  name: "Bulbasaur",
-  type: ["Grass", "Poison"],
-  total: 318,
-  hp: 45,
-  attack: 49,
-};
 function FlipCard(props) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isMatched, setIsMatched] = useState(false);
@@ -132,7 +124,7 @@ export default FlipCard;
 //! ------------------ Problems to solve ------------------
 
 // -  Card flip only once, it stops after that, why?
-// - flippedCards array not updating correctly
+// - flippedCards array not updating correctly? why? because setState is asynchronous, so when we check the length of flippedCards right after setting it, it still has the old value. need to use useEffect to monitor changes in flippedCards array.
 // -  when clicking on already flipped card, it adds it again to the flippedCards array
 // -  need to prevent clicking on already matched cards
 // -  need to prevent clicking on more than 2 cards at a time

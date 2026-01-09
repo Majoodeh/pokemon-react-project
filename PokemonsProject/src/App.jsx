@@ -7,6 +7,7 @@ import { mockPokemons } from "./data/pokemonsDataShorList";
 import pokeballImg from "./imgs/pokeball.avif";
 
 const pokeball = "./src/imgs/pokeball.avif";
+import Layout from "./Extra/Layout.jsx";
 
 function getDoubleShuffleArray(arr) {
   // it will take the pokemon array and then return a new array with each pokemon duplicated and shuffled randomly
@@ -42,7 +43,8 @@ let cardsArray = getDoubleShuffleArray(mockPokemons);
 function App() {
   return (
     <>
-      <div className="flex flex-wrap justify-center gap-6 p-10 bg-gray-100 min-h-screen">
+      <Layout />
+      {/* <div className="flex flex-wrap justify-center gap-6 p-10 bg-gray-100 min-h-screen">
         {cardsArray.map((pokemon) => {
           return (
             <FlipCard
@@ -53,19 +55,9 @@ function App() {
             />
           );
         })}
-      </div>
+      </div> */}
     </>
   );
 }
 
 export default App;
-
-//! ------------------ Proplems to solve ------------------
-
-// -  Card flip only once, it stops after that, why?
-// - flippedCards array not updating correctly
-// -  when clicking on already flipped card, it adds it again to the flippedCards array
-// -  need to prevent clicking on already matched cards
-// -  need to prevent clicking on more than 2 cards at a time
-// -  need to flip back the cards if they dont match after a timeout
-// -  need to keep the matched cards flipped permanently

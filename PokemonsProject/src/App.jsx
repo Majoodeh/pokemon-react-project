@@ -8,6 +8,9 @@ import pokeballImg from "./imgs/pokeball.avif";
 
 const pokeball = "./src/imgs/pokeball.avif";
 import Layout from "./Extra/Layout.jsx";
+import LayoutTwo from "./Extra/LayoutTwo.jsx";
+import Navbar from "./components/Navbar.jsx";
+import HomePage from "./components/HomePage.jsx";
 
 function getDoubleShuffleArray(arr) {
   // it will take the pokemon array and then return a new array with each pokemon duplicated and shuffled randomly
@@ -43,7 +46,8 @@ let cardsArray = getDoubleShuffleArray(mockPokemons);
 function App() {
   return (
     <>
-      <Layout />
+      <Navbar />
+      <HomePage />
       {/* <div className="flex flex-wrap justify-center gap-6 p-10 bg-gray-100 min-h-screen">
         {cardsArray.map((pokemon) => {
           return (

@@ -1,12 +1,12 @@
-import LOGO1 from "./LOGO-1.png";
-import { Nav } from "./Nav";
-import frame1 from "./frame-1.png";
-import image1 from "./image-1.png";
-import image3 from "./image-3.png";
-import image5 from "./image-5.png";
-import image from "./image.png";
+// import LOGO1 from "./LOGO-1.png";
+// import { Nav } from "./Nav";
+// import frame1 from "./frame-1.png";
+// import image1 from "./image-1.png";
+// import image3 from "./image-3.png";
+// import image5 from "./image-5.png";
+// import image from "./image.png";
 
-export const Frame = () => {
+export const LayoutTwo = () => {
   return (
     <div className="border border-solid border-black bg-[linear-gradient(178deg,rgba(140,0,251,0.79)_0%,rgba(255,0,214,0.84)_98%)] w-full min-w-[1669px] min-h-[1073px] relative">
       <img
@@ -63,4 +63,4 @@ export const Frame = () => {
   );
 };
 
-export default Frame;
+export default LayoutTwo;

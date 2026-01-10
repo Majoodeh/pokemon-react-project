@@ -23,3 +23,7 @@
 
 This gives you a list of all Pokémon types, which can be used for filtering.:
 [fire, water, grass, electric, etc.]
+
+### Images api:
+
+- `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{id}.png`

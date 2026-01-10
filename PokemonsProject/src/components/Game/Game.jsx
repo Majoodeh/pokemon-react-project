@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import ReactCardFlip from "react-card-flip";
-import pokeballImg from "../imgs/pokeball.png";
+import pokeballImg from "../../imgs/pokeball.png";
+import Navbar from "../Navbar/Navbar.jsx";
 
-function FlipCard(props) {
+function Game(props) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isMatched, setIsMatched] = useState(false);
   const [flippedCards, setFlippedCards] = useState([]); // an array of 2 items length, to keep track of the 2 flipped cards
@@ -53,55 +54,58 @@ function FlipCard(props) {
   console.log(flippedCards);
 
   return (
-    <div
-      className="flex justify-center items-center h-60 w-60"
-      name={props.name}
-      key={props.id}
-      onClick={handleClick}
-    >
-      <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
-        <div
-          key="front"
-          className="relative w-60 h-60 min-w-20 min-h-20 max-w-80 max-h-80 rounded-lg overflow-hidden border border-gray-200 shadow-sm bg-white"
-        >
-          {/* THE IMAGE: 'absolute' + 'inset-0' forces it to stay inside the box */}
-          <img
-            src={pokeballImg}
-            alt="Small card"
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-        </div>
-
-        {/* back side of the card */}
-
-        <div
-          key="back"
-          className="relative w-60 h-60 min-w-20 min-h-20 max-w-80 max-h-80 rounded-lg overflow-hidden border border-gray-200 shadow-sm bg-white"
-          onClick={() => setIsFlipped(false)}
-        >
-          {/* THE IMAGE: 'absolute' + 'inset-0' forces it to stay inside the box */}
-          <img
-            src={props.imageUrl}
-            alt="Small card"
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-
-          {/* THE SHADOW */}
+    <div>
+      <Navbar />
+      <div
+        className="flex justify-center items-center h-60 w-60"
+        name={props.name}
+        key={props.id}
+        onClick={handleClick}
+      >
+        <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
           <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: "radial-gradient(black, transparent 60%)",
-              transform: "rotate3d(0, 0, 1, 20deg) scale3d(1, 0.6, 1)",
-              opacity: 0.1,
-            }}
-          ></div>
-        </div>
-      </ReactCardFlip>
+            key="front"
+            className="relative w-60 h-60 min-w-20 min-h-20 max-w-80 max-h-80 rounded-lg overflow-hidden border border-gray-200 shadow-sm bg-white"
+          >
+            {/* THE IMAGE: 'absolute' + 'inset-0' forces it to stay inside the box */}
+            <img
+              src={pokeballImg}
+              alt="Small card"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          </div>
+
+          {/* back side of the card */}
+
+          <div
+            key="back"
+            className="relative w-60 h-60 min-w-20 min-h-20 max-w-80 max-h-80 rounded-lg overflow-hidden border border-gray-200 shadow-sm bg-white"
+            onClick={() => setIsFlipped(false)}
+          >
+            {/* THE IMAGE: 'absolute' + 'inset-0' forces it to stay inside the box */}
+            <img
+              src={props.imageUrl}
+              alt="Small card"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+
+            {/* THE SHADOW */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: "radial-gradient(black, transparent 60%)",
+                transform: "rotate3d(0, 0, 1, 20deg) scale3d(1, 0.6, 1)",
+                opacity: 0.1,
+              }}
+            ></div>
+          </div>
+        </ReactCardFlip>
+      </div>{" "}
     </div>
   );
 }
 
-export default FlipCard;
+export default Game;
 
 //?   <button onClick={() => setIsFlipped(true)}>Flip</button>
 // Logic

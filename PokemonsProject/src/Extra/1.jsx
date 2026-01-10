@@ -1,7 +1,5 @@
 //  this file is the general code for the layout
 
-
-
 <div
   data-layer="Frame 6"
   className="Frame6 w-[1669px] h-[1073px] relative bg-gradient-to-b from-purple-600/80 to-fuchsia-600/80 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] outline outline-1 outline-offset-[-1px] outline-black"
@@ -1500,4 +1498,4 @@
     </div>
   </div>
 </div>;
-// 
+//

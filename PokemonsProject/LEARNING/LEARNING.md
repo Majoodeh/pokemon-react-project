@@ -289,7 +289,26 @@ Step 4: Identify where your state should live
      c- If you can’t find a component where it makes sense to own the state, create a new component solely for holding the state and add it somewhere in the hierarchy above the common parent component.
 
 - to detrmine where the state should live, follow these steps:
+
   - Identify every component that renders something based on that state.
+  - Find a common owner component of those components, a single component above all the components that need the state in the hierarchy.
+    Find their closest common parent component—a component above them all in the hierarchy
+  - if you can’t find a component where it makes sense to own the state, create a new component solely for holding the state and add it somewhere in the hierarchy above the common parent component.
+
+  example for state lives in the common parent component:
+
+```jsx
+function Parent() {
+  const [state, setState] = useState(initialValue);
+
+  return (
+    <div>
+      <ChildA state={state} />
+      <ChildB state={state} />
+    </div>
+  );
+}
+```
 
 ---
 
@@ -297,3 +316,19 @@ What is till need to be learned:
 
 - The parent-child component communication in React.
 - https://react.dev/learn
+
+---
+
+# Routers in React
+
+https://luqmanshaban.medium.com/react-router-a-step-by-step-guide-4c5ec964d2e9
+
+steps:
+
+1. Install react-router-dom package:
+   `npm install react-router-dom`
+
+2. Set up the Router in your main application file (e.g., App.js):
+   ```jsx
+   import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+   ```

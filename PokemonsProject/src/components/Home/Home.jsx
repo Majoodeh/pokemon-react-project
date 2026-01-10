@@ -37,26 +37,26 @@ function Home() {
           <div className="flex flex-row lg:flex-row gap-[3vw] w-full lg:w-[50%] h-auto">
             {/* Card 1 */}
             <div className="flex-1 bg-white/95 backdrop-blur-md rounded-[2.5vw] p-[2vw] flex flex-col items-center justify-between shadow-xl border border-white/20 aspect-[3/4] lg:aspect-auto">
-              <span className="text-[3.5vw] lg:text-[1.8vw] font-semibold text-slate-800 text-center">
-                Pokémon Collection
-              </span>
               <img
                 src={charizard}
                 className="w-[80%] h-auto object-contain transition-transform duration-300 hover:scale-110"
                 alt="Charizard"
               />
+              <span className="text-[3.5vw] lg:text-[1.8vw] font-semibold text-slate-800 text-center">
+                Pokémon Collection
+              </span>
             </div>
 
             {/* Card 2 */}
             <div className="flex-1 bg-white/95 backdrop-blur-md rounded-[2.5vw] p-[2vw] flex flex-col items-center justify-between shadow-xl border border-white/20 aspect-[3/4] lg:aspect-auto">
-              <span className="text-[3.5vw] lg:text-[1.8vw] font-semibold text-slate-800 text-center">
-                Memory Game
-              </span>
               <img
                 src={blastoise}
                 className="w-[80%] h-auto object-contain transition-transform duration-300 hover:scale-110"
                 alt="Blastoise"
-              />
+              />{" "}
+              <span className="text-[3.5vw] lg:text-[1.8vw] font-semibold text-slate-800 text-center">
+                Memory Game
+              </span>
             </div>
           </div>
         </div>

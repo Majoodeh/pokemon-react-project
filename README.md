@@ -1,16 +1,48 @@
-# React + Vite
+# Poekemon website (name to be changed later):
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### The Concept
 
-Currently, two official plugins are available:
+A React-based Pokémon hub that combines a functional **Pokedex** (data browsing) with an interactive **Memory Match Game**. The goal is to create a playful, responsive experience for fans to discover Pokémon and test their memory.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+### Current Status
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **UI/UX:** Approximately 90% complete (layouts, styling, and navigation are established).
 
-## Expanding the ESLint configuration
+- **Functionality:** About 40% complete (basic routing and static pages are don. core features like the Memory Game and Pokedex filtering are the next step).
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+### Roadmap
+
+1. **Phase 1 (Interactivity):** Building out the Memory Game logic and Pokedex filtering using mock data (**Current focus**).
+2. **Phase 2 (Global State):** Implementing **Context API** to handle "Favorite Pokémon" and game scores across pages.
+3. **Phase 3 (Integration):** Replacing mock data with live fetches from the **PokéAPI**.
+
+---
+
+### MUST-HAVES
+
+- **Multi-page navigation** via `react-router-dom`.
+- **Global state management** using Context API.
+- **Dynamic Pokémon Detail pages.**
+- **Fully responsive design.**
+
+---
+
+### NICE-TO-HAVES
+
+- Custom Hooks for API fetching.
+- favorites list saved to **LocalStorage**.
+- filtering options
+
+---
+
+### Libraries & Technologies Used
+
+- **React**
+- **React DOM**
+- **React Router DOM**
+- **React Card Flip** – Provides the card-flipping animation logic for the memory match game.
+- **Tailwind CSS / @tailwindcss/vite**

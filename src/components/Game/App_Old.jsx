@@ -1,4 +1,4 @@
-//! THis file must be delted later
+//! THis file must be deleted later
 
 import { useState } from "react";
 import "./App.css";
@@ -6,13 +6,13 @@ import ReactCardFlip from "react-card-flip";
 import FlipCard from "./components/Game/FlipCard.jsx";
 import Card from "./components/List/Card.jsx";
 
-import { mockPokemons } from "./data/pokemonsDataShorList";
+import { mockPokemons } from "../../data/pokemonsDataShorList.js";
 import pokeballImg from "./imgs/pokeball.avif";
 
 const pokeball = "./src/imgs/pokeball.avif";
-import Layout from "./Extra/Layout.jsx";
-import LayoutTwo from "./Extra/LayoutTwo.jsx";
-import Navbar from "./components/Navbar/Navbar.jsx";
+import Layout from "../../Extra/Layout.jsx";
+import LayoutTwo from "../../Extra/LayoutTwo.jsx";
+import Navbar from "../Navbar/Navbar.jsx";
 import HomePage from "./components/Home/HomePage.jsx";
 
 function getDoubleShuffleArray(arr) {

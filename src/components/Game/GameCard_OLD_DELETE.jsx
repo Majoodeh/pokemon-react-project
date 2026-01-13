@@ -3,7 +3,7 @@ import ReactCardFlip from "react-card-flip";
 import pokeballImg from "../../imgs/pokeball.png";
 import Navbar from "../Navbar/Navbar.jsx";
 
-function Game(props) {
+function GameCard(props) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isMatched, setIsMatched] = useState(false);
   const [flippedCards, setFlippedCards] = useState([]); // an array of 2 items length, to keep track of the 2 flipped cards
@@ -105,7 +105,7 @@ function Game(props) {
   );
 }
 
-export default Game;
+export default GameCard;
 
 //?   <button onClick={() => setIsFlipped(true)}>Flip</button>
 // Logic

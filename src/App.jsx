@@ -5,7 +5,7 @@ import About from "./components/About/About.jsx";
 import Contact from "./components/ContactUS/ContactUs.jsx";
 import PokemonInfo from "./components/Pokemon_Info/PokemonInfo.jsx";
 import { Routes, Route } from "react-router-dom";
-import Game from "./components/Game/Game.jsx";
+import GameCard from "./components/Game/GameCard.jsx";
 import Card from "./components/PokemonsList/Card.jsx";
 
 function App() {
@@ -14,9 +14,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/about" element={<About />} />
+
         <Route path="/contact" element={<Contact />} />
-        <Route path="/game" element={<Game />} />
+        <Route path="/game" element={<GameCard />} />
         <Route path="/pokemon" element={<Card />}>
           <Route path=":pokemonId" element={<PokemonInfo />} />
         </Route>

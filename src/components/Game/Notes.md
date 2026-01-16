@@ -24,17 +24,16 @@ Match Logic: (Card1.name === Card2.name) AND (Card1.id !== Card2.id)
 
 - If both conditions are true, add their ids to matchedCards array.
 
-
-
-_______
+---
 
 example on how to pass a function as a prop from parent to child component:
 Parent Component:
+
 ```jsx
-import React, { useState } from 'react';
-import ChildComponent from './ChildComponent';
+import React, { useState } from "react";
+import ChildComponent from "./ChildComponent";
 function ParentComponent() {
-  const [message, setMessage] = useState('Hello from Parent!');
+  const [message, setMessage] = useState("Hello from Parent!");
 
   const handleClick = () => {
     alert(message);
@@ -48,24 +47,26 @@ function ParentComponent() {
 }
 export default ParentComponent;
 ```
+
 Child Component:
+
 ```jsx
-import React from 'react';
+import React from "react";
 function ChildComponent({ onButtonClick }) {
-    return (
-        <div>
-        <button onClick={onButtonClick}>Click Me!</button>
-        </div>
-    );
-    }
+  return (
+    <div>
+      <button onClick={onButtonClick}>Click Me!</button>
+    </div>
+  );
+}
 export default ChildComponent;
 ```
 
 the function `handleClick` is defined in the ParentComponent needs to know which card was clicked. this can be happened by passing the card's id or name as an argument to the handleClick function when calling it from the Card component.
 
-
 a wrapper function: it is a function that "wraps" another function to add some additional functionality or to modify its behavior. In this case.
 simple example:
+
 ```jsx
 function ParentComponent() {
   const handleClick = (cardId) => {
@@ -79,7 +80,10 @@ function ParentComponent() {
   );
 }
 function ChildComponent({ onCardClick }) {
-  const cards = [{ id: 1, name: 'Card 1' }, { id: 2, name: 'Card 2' }];
+  const cards = [
+    { id: 1, name: "Card 1" },
+    { id: 2, name: "Card 2" },
+  ];
 
   return (
     <div>
@@ -92,7 +96,42 @@ function ChildComponent({ onCardClick }) {
   );
 }
 ```
+
 In this example, the ParentComponent defines a handleClick function that takes a cardId as an argument. The ChildComponent receives this function as a prop named onCardClick. When rendering the cards, the ChildComponent uses a wrapper function () => onCardClick(card.id) to call the onCardClick function with the specific card's id when a card is clicked.
 
 in my words: the handlClick function has an argument cardId.
 when we use onClick={() => onCardClick(card.id)} in the ChildComponent, we are creating a new function that, when executed (i.e., when the card is clicked), will call the onCardClick function (which is actually handleClick from the ParentComponent) with the specific card's id as an argument. This way, the ParentComponent knows exactly which card was clicked based on the id passed to handleClick.
+
+---
+
+## Note:
+
+- React props dont automatically pass data attributes like `data-id` to event handlers. (they domt automatically become HTML attiributes on the DOM element).
+- When passing a prop to a component, React uses that data to configure the component **internally**. However, unless explicitly handled, these props do not translate to HTML attributes in the rendered DOM.
+- So the brwoser's DOM does not have access to React's internal props unless they are explicitly set as HTML attributes.
+- `props are JavaScript concept, not a DOM concept.`
+
+### How to solve that:
+
+- THe concept: instead of trying to access data attributes from the DOM element, pass the necessary data directly through the event handler using a wrapper function.
+
+example:
+
+```jsx
+<GameCard
+  key={item.key}
+  data-id={item.id}
+  isFlipped={item.isFlipped}
+  flipCard={item.flipCard}
+  onClick={() => handleClick(item.id)} // Pass the id directly
+/>
+```
+
+- Then, in the handleClick function, you can directly receive the cardId as an argument:
+
+```jsx
+function handleClick(cardId) {
+  console.log("CARD ID:", cardId);
+  // rest of the logic
+}
+```

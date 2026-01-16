@@ -1,16 +1,14 @@
-import React, { useState } from "react";
 import ReactCardFlip from "react-card-flip";
 import pokeballImg from "../../imgs/pokeball.png";
-import Navbar from "../Navbar/Navbar.jsx";
 
 function GameCard(props) {
-  const { name, imageUrl, id, isFlipped, flipCard } = props;
+  const { name, imageUrl, id, isFlipped, flipCard, onClick } = props;
   return (
     <div
       className="flex justify-center items-center h-60 w-60"
       name={name}
-      key={id}
-      onClick={flipCard}
+      onClick={onClick}
+      data-id={id}
     >
       <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
         <div
@@ -30,7 +28,6 @@ function GameCard(props) {
         <div
           key="back"
           className="relative w-60 h-60 min-w-20 min-h-20 max-w-80 max-h-80 rounded-lg overflow-hidden border border-gray-200 shadow-sm bg-white"
-          onClick={() => setIsFlipped(false)}
         >
           {/* THE IMAGE:  */}
           <img

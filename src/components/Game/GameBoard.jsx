@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../Navbar/Navbar.jsx";
 import GameCard from "./GameCard.jsx";
 import { mockPokemons } from "../../data/pokemonsDataShorList.js";
+import PlayAgainButton from "./PlayAgainButton.jsx";
+import WinScreen from "./WinScreen.jsx";
 
 // Utility function to duplicate and shuffle the array
 function getDoubleShuffleArray(arr) {
@@ -35,13 +37,6 @@ function GameBoard() {
   // console.log("gameCardsCollection", gameCardsCollection);
 
   //Check if all cards are matched
-  useEffect(() => {
-    gameCardsCollection.every((card) => {
-      if (card.isMatched === true) {
-        console.log("you did it");
-      }
-    });
-  }, [gameCardsCollection]);
 
   // check flipped cards for match
   useEffect(() => {
@@ -84,12 +79,6 @@ function GameBoard() {
         }, 1000);
       }
     }
-
-    // if (flippedCards.length >= 2) {
-    //   setDisabled(true);
-    //   setFlippedCards([]);
-    //   setDisabled(false);
-    // }
   }, [flippedCards]);
 
   //? Handle card click
@@ -112,15 +101,16 @@ function GameBoard() {
     const cardId = cardDetails.id;
     //2 conditions to ignore the clickon a card if (1) clicking is disabled because the card is already matched or (2) the card is already flipped
     if (disabled) return; // do nothing if clicking is disabled
-    if (flippedCards.find((card) => card.id === cardId)) return; // do nothing if the card is already flipped
+    // if (flippedCards.find((card) => card.id === cardId)) return; // do nothing if the card is already flipped
     console.log("disabled", disabled);
 
     // to flip the card when clicking on it
 
     const openCards = gameCardsCollection.map((card) => {
-      console.log("Card in map 101", card);
+      // console.log("Card in map 101", card);
       if (card.id === cardId) {
-        card.isFlipped = true;
+        // card.isFlipped = true;
+        card.isFlipped = !card.isFlipped;
       }
       return card;
     });
@@ -134,24 +124,43 @@ function GameBoard() {
     // console.log(gameCardsCollection);
   }
 
-  return (
-    <>
-      <Navbar />
+  /** Reset the Game  */
+  function resetGame() {
+    setGameCardsCollection(getDoubleShuffleArray(mockPokemons));
+    setFlippedCards([]);
+    setDisabled(false);
+  }
 
-      <div>GameBoard</div>
-      <div className="grid grid-cols-4 gap-4 p-4">
-        {gameCardsCollection.map((card) => {
-          return (
-            <GameCard
-              // key={card.key}
-              {...card}
-              onClick={() => handleClick(card)}
-            />
-          );
-        })}
-      </div>
-    </>
-  );
+  if (gameCardsCollection.length > 0) {
+    const isWin = gameCardsCollection.every((card) => card.isMatched);
+
+    if (isWin) {
+      return <WinScreen onReset={() => resetGame()} />;
+    } else {
+      return (
+        <>
+          <Navbar />
+          <div>GameBoard</div>
+          <div className="grid grid-cols-4 gap-4 p-4">
+            {gameCardsCollection.map((card) => {
+              return (
+                <GameCard
+                  // key={card.key}
+                  {...card}
+                  onClick={() => handleClick(card)}
+                />
+              );
+            })}
+          </div>
+          <PlayAgainButton onClick={() => resetGame()} />
+
+          {/* {isWin ? <WinScreen onReset={() => resetGame()} /> : null} */}
+        </>
+      );
+    }
+  } else {
+    return <div>Game Is Loading ...</div>; //! Needs to be changed later ....
+  }
 }
 
 export default GameBoard;

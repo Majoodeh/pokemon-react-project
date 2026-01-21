@@ -3,49 +3,44 @@ import pokeballImg from "../../imgs/pokeball.png";
 
 function GameCard(props) {
   const { name, imageUrl, id, isFlipped, isMatched, onClick } = props;
+
   return (
     <div
-      className="flex justify-center items-center h-60 w-60"
-      name={name}
+      className="relative w-full h-full aspect-square cursor-pointer"
       onClick={onClick}
       data-id={id}
-      isMatched={isMatched}
     >
-      <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
+      <ReactCardFlip
+        isFlipped={isFlipped}
+        flipDirection="horizontal"
+        containerClassName="w-full h-full"
+      >
+        {/* Front Side: Pokeball covering the whole card */}
         <div
           key="front"
-          className="relative w-60 h-60 min-w-20 min-h-20 max-w-80 max-h-80 rounded-lg overflow-hidden border border-gray-200 shadow-sm bg-white"
+          className="w-full h-full rounded-xl border-2 border-white/20 shadow-lg bg-slate-800 overflow-hidden hover:brightness-110 transition-all flex items-center justify-center"
         >
-          {/* THE IMAGE:  */}
           <img
-            src={pokeballImg} //! needs to be changed to prop later
-            alt="Small card"
-            className="absolute inset-0 w-full h-full object-cover"
+            src={pokeballImg}
+            alt="Pokeball"
+            className="w-full h-full object-cover p-2"
           />
         </div>
 
-        {/* back side of the card */}
-
+        {/* Back Side: The Pokémon covering the whole card */}
         <div
           key="back"
-          className="relative w-60 h-60 min-w-20 min-h-20 max-w-80 max-h-80 rounded-lg overflow-hidden border border-gray-200 shadow-sm bg-white"
+          className={`w-full h-full rounded-xl border-2 shadow-xl bg-white flex items-center justify-center transition-all overflow-hidden ${
+            isMatched
+              ? "border-yellow-400 ring-4 ring-yellow-400/50"
+              : "border-gray-300"
+          }`}
         >
-          {/* THE IMAGE:  */}
           <img
             src={imageUrl}
-            alt="Small card"
-            className="absolute inset-0 w-full h-full object-cover"
+            alt={name}
+            className="w-full h-full object-contain p-3"
           />
-
-          {/* THE SHADOW */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: "radial-gradient(black, transparent 60%)",
-              transform: "rotate3d(0, 0, 1, 20deg) scale3d(1, 0.6, 1)",
-              opacity: 0.1,
-            }}
-          ></div>
         </div>
       </ReactCardFlip>
     </div>

@@ -4,7 +4,7 @@ import GameCard from "./GameCard.jsx";
 import { mockPokemons } from "../../data/pokemonsDataShorList.js";
 import PlayAgainButton from "./PlayAgainButton.jsx";
 import WinScreen from "./WinScreen.jsx";
-
+import useFetchUrl from "../Hooks/useFetchUrl.js";
 // Utility function to duplicate and shuffle the array
 function getDoubleShuffleArray(arr) {
   // this function will take the pokemon array and then return a new array with each pokemon duplicated and shuffled randomly
@@ -13,30 +13,48 @@ function getDoubleShuffleArray(arr) {
   // Give unique ids and keys to each item
   for (let i = 0; i < pairedCards.length; i++) {
     pairedCards[i].id = i + 1;
-    pairedCards[i].key = i + 1;
   }
   //! Imoortant code, just comment it to test the game easily DONT DELETE
   // Shuffling the pairedCards array using Fisher-Yates Shuffle Algorithm
-  /*  for (let i = pairedCards.length - 1; i > 0; i--) { //! DONT DELETE THIS CODE 
-    const j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i //! DONT DELETE THIS CODE
-    [pairedCards[i], pairedCards[j]] = [pairedCards[j], pairedCards[i]]; //! DONT DELETE THIS CODE
-  } */
+  for (let i = pairedCards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
+    [pairedCards[i], pairedCards[j]] = [pairedCards[j], pairedCards[i]];
+  }
   return pairedCards;
 }
 
 //! GameBoard Component
 function GameBoard() {
-  const [gameCardsCollection, setGameCardsCollection] = useState(() =>
-    getDoubleShuffleArray(mockPokemons)
-  ); //  gameCardsCollection is an array that holds all the cards for the game board
+  const [offset] = useState(() => Math.floor(Math.random() * 1000));
+  const { data, loading, error } = useFetchUrl(
+    `https://pokeapi.co/api/v2/pokemon?limit=4&offset=${offset}`
+  );
+
+  const [gameCardsCollection, setGameCardsCollection] = useState([]); //  gameCardsCollection is an array that holds all the cards for the game board
   // gameCardsCollection will hold the cards for the game board. its structure:
   //  { id: '1a', matchId: 1, imageUrl: '...', isFlipped: false, isMatched: false }
   const [flippedCards, setFlippedCards] = useState([]); // an array that holds the currently flipped cards, max length is 2
   const [disabled, setDisabled] = useState(false); // a boolean to disable clicking when checking for a match
-
+  const [initialCards, setInitialCards] = useState([]);
   // console.log("gameCardsCollection", gameCardsCollection);
 
-  //Check if all cards are matched
+  // Initialize game cards when data is fetched
+  useEffect(() => {
+    if (!data?.results) return;
+
+    const cards = data.results.map((pokemon) => {
+      const id = pokemon.url.split("/").at(-2);
+
+      return {
+        name: pokemon.name,
+        imageUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
+        isFlipped: false,
+        isMatched: false,
+      };
+    });
+    setInitialCards(cards);
+    setGameCardsCollection(getDoubleShuffleArray(cards));
+  }, [data]);
 
   // check flipped cards for match
   useEffect(() => {
@@ -83,6 +101,8 @@ function GameBoard() {
 
   //? Handle card click
   function handleClick(cardDetails) {
+    if (cardDetails.isFlipped || cardDetails.isMatched) return;
+
     //? I think that i need to add a condition in case i want to flip the first card back, because now when i click on the first card, it flips but there is no way to clean the cards from the flippedCards array if i want to flip it back alone.
     console.log("cardDetails", cardDetails);
 
@@ -127,10 +147,13 @@ function GameBoard() {
 
   /** Reset the Game  */
   function resetGame() {
-    setGameCardsCollection(getDoubleShuffleArray(mockPokemons));
+    setGameCardsCollection(getDoubleShuffleArray(initialCards));
     setFlippedCards([]);
     setDisabled(false);
   }
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error...</div>;
 
   if (gameCardsCollection.length > 0) {
     const isWin = gameCardsCollection.every((card) => card.isMatched);
@@ -146,7 +169,7 @@ function GameBoard() {
             {gameCardsCollection.map((card) => {
               return (
                 <GameCard
-                  // key={card.key}
+                  key={card.key}
                   {...card}
                   onClick={() => handleClick(card)}
                 />

@@ -7,9 +7,9 @@ function GameCard(props) {
     <div
       className="flex justify-center items-center h-60 w-60"
       name={name}
-      onClick={onClick}
+      onClick={isMatched ? null : onClick}
       data-id={id}
-      isMatched={isMatched}
+      data-Matched={isMatched}
     >
       <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
         <div

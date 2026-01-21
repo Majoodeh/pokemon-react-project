@@ -6,14 +6,14 @@ import WinScreen from "./WinScreen.jsx";
 import useFetchUrl from "../Hooks/useFetchUrl.js";
 // Utility function to duplicate and shuffle the array
 function getDoubleShuffleArray(arr) {
-  // this function will take the pokemon array and then return a new array with each pokemon duplicated and shuffled randomly
-  const pairedCards = [...arr, ...arr].map((item) => ({ ...item })); // map,because without it it will copy the refernce only and changing one will change the other also and both will share the same id ..
+  // Function to duplicate and shuffle the array
+  const pairedCards = [...arr, ...arr].map((item) => ({ ...item }));
 
   // Give unique ids and keys to each item
   for (let i = 0; i < pairedCards.length; i++) {
     pairedCards[i].id = i + 1;
   }
-  //! Imoortant code, just comment it to test the game easily DONT DELETE
+
   // Shuffling the pairedCards array using Fisher-Yates Shuffle Algorithm
   for (let i = pairedCards.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i

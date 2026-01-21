@@ -1,5 +1,8 @@
 import React from "react";
 
+/** * Type Component
+ * Renders a styled badge representing a Pokémon type.
+ */
 const typeColors = {
   fire: "bg-orange-500 shadow-orange-500/40",
   water: "bg-blue-500 shadow-blue-500/40",
@@ -22,6 +25,7 @@ const typeColors = {
 };
 
 function Type({ type }) {
+  // Determine background color based on type
   const colorClass = typeColors[type.toLowerCase()] || "bg-slate-500";
 
   return (

@@ -29,4 +29,5 @@ This gives you a list of all Pokémon types, which can be used for filtering.:
 - `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{id}.png`
 
 - for the card game:
-  `sprites.other["official-artwork"].front_default`
+  `sprites.other["official-artwork"].front_default` gives a better image for cards.
+- Example: https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png (Pikachu)

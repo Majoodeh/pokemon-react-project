@@ -5,11 +5,19 @@ import useFetchUrl from "../Hooks/useFetchUrl.js";
 import Message from "../PokemonsList/Message.jsx";
 import Type from "../PokemonsList/Type.jsx";
 
+/** * PokemonInfo Component
+ * Fetches and displays detailed information about a specific Pokémon.
+ */
+
 function PokemonInfo() {
+  // Get Pokémon name from URL params
   const { pokemonName } = useParams();
+
+  // Construct API endpoint and fetch data using custom hook
   const URL = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`;
   const { data, loading, error } = useFetchUrl(URL);
 
+  // ------ Handle Loading and Error States ------
   if (loading) {
     return (
       <div className="h-screen w-full bg-gradient-to-br from-purple-400 to-pink-300 flex items-center justify-center">
@@ -18,6 +26,7 @@ function PokemonInfo() {
     );
   }
 
+  // Error State
   if (error) {
     return (
       <div className="h-screen w-full bg-gradient-to-br from-purple-400 to-pink-300 flex items-center justify-center">
@@ -26,13 +35,16 @@ function PokemonInfo() {
     );
   }
 
+  // Simplify data for easier access
+  // The optional chaining (?.) is used to avoid errors if data is missing
   const pokemonData = {
     name: pokemonName,
     image: data?.sprites?.other?.["official-artwork"].front_default,
     height: data?.height,
     weight: data?.weight,
-    abilities: data?.abilities?.map((ability) => ability.ability.name),
-    types: data?.types?.map((type) => type.type.name),
+
+    abilities: data?.abilities?.map((ability) => ability.ability.name), // Array of ability names extracted it like that because the object from api has nested structure
+    types: data?.types?.map((type) => type.type.name), // Array of type names extracted similarly
   };
 
   return (

@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import LOGO from "../../imgs/LOGO.svg";
 import { Link, useLocation } from "react-router-dom";
 
+/** * Navbar Component
+ * Renders a responsive navigation bar with links to different sections of the app.
+ */
+
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();

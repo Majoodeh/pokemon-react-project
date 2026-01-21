@@ -4,12 +4,16 @@ import GameCard from "./GameCard.jsx";
 import PlayAgainButton from "./PlayAgainButton.jsx";
 import WinScreen from "./WinScreen.jsx";
 import useFetchUrl from "../Hooks/useFetchUrl.js";
-// Utility function to duplicate and shuffle the array
+
+/** SHUFFLE LOGIC
+ * iT Takes an array of 8 Pokémon, doubles them to 16, and shuffles them
+ * using the Fisher-Yates algorithm.
+ */
 function getDoubleShuffleArray(arr) {
   // Function to duplicate and shuffle the array
   const pairedCards = [...arr, ...arr].map((item) => ({ ...item }));
 
-  // Give unique ids and keys to each item
+  // Give unique ids and keys to each item //! Needs to be change in the future, it is not a good to do it like this
   for (let i = 0; i < pairedCards.length; i++) {
     pairedCards[i].id = i + 1;
   }
@@ -22,22 +26,22 @@ function getDoubleShuffleArray(arr) {
   return pairedCards;
 }
 
-//! GameBoard Component
+// GAME BOARD COMPONENT
 function GameBoard() {
+  //  ------- State Management && Data Fetching --------
   const [offset] = useState(() => Math.floor(Math.random() * 1000));
   const { data, loading, error } = useFetchUrl(
     `https://pokeapi.co/api/v2/pokemon?limit=8&offset=${offset}`
   );
 
-  const [gameCardsCollection, setGameCardsCollection] = useState([]); //  gameCardsCollection is an array that holds all the cards for the game board
-  // gameCardsCollection will hold the cards for the game board. its structure:
-  //  { id: '1a', matchId: 1, imageUrl: '...', isFlipped: false, isMatched: false }
-  const [flippedCards, setFlippedCards] = useState([]); // an array that holds the currently flipped cards, max length is 2
-  const [disabled, setDisabled] = useState(false); // a boolean to disable clicking when checking for a match
-  const [initialCards, setInitialCards] = useState([]);
-  // console.log("gameCardsCollection", gameCardsCollection);
+  const [gameCardsCollection, setGameCardsCollection] = useState([]); // All cards for the game //  { id: '1a', matchId: 1, imageUrl: '...', isFlipped: false, isMatched: false }
 
-  // Initialize game cards when data is fetched
+  const [flippedCards, setFlippedCards] = useState([]); // Track currently flipped cards | max 2 cards
+  const [disabled, setDisabled] = useState(false); // Disable clicking when checking for match or during timeout
+  const [initialCards, setInitialCards] = useState([]); // To store the initial set of cards (8 cards)
+
+  // ------ INITIALIZE GAME CARDS ------
+  // Transform fetched data into game cards when data is available and starts the game
   useEffect(() => {
     if (!data?.results) return;
 
@@ -55,16 +59,15 @@ function GameBoard() {
     setGameCardsCollection(getDoubleShuffleArray(cards));
   }, [data]);
 
-  // check flipped cards for match
+  // ------- GAME Matching LOGIC -------
+  // Runs whenever flippedCards changes, checks if 2 cards are flipped and compares them for match, and updates game state accordingly
   useEffect(() => {
     if (flippedCards.length === 2) {
       setDisabled(true);
 
       if (flippedCards[0]?.name === flippedCards[1]?.name) {
-        console.log("Match!");
-
+        // It's a Match, then update the gameCardsCollection to mark these cards as matched
         const openCards = gameCardsCollection.map((card) => {
-          //* DONT FORGET: what map does is that it maps through each item in the array, so you need always to tell it what to do with each item even if it doesnt match the condition
           if (
             flippedCards[0].id === card.id ||
             flippedCards[1].id === card.id
@@ -78,7 +81,7 @@ function GameBoard() {
         setDisabled(false);
         setFlippedCards([]);
       } else {
-        console.log("No Match!");
+        // No match found, flip the cards back after a short delay
         const openCards = gameCardsCollection.map((card) => {
           if (
             flippedCards[0].id === card.id ||
@@ -93,55 +96,31 @@ function GameBoard() {
           setGameCardsCollection(openCards);
           setFlippedCards([]);
           setDisabled(false);
-        }, 1000);
+        }, 2000);
       }
     }
   }, [flippedCards]);
 
-  //? Handle card click
+  // ------- HANDLE USER CLICK ON A CARD -------
   function handleClick(cardDetails) {
-    if (cardDetails.isFlipped || cardDetails.isMatched) return;
-
-    //? I think that i need to add a condition in case i want to flip the first card back, because now when i click on the first card, it flips but there is no way to clean the cards from the flippedCards array if i want to flip it back alone.
-    console.log("cardDetails", cardDetails);
-
-    console.log("flippedCards", flippedCards);
-    console.log(
-      "flippedCardsAttri",
-      flippedCards[0]?.name,
-      "2",
-      flippedCards[1]?.name
-    );
-    // console.log("cardId", cardId);
-    // const cardAisFlipped = cardDetails.isFlipped;
-    // console.log("cardAisFlipped", cardAisFlipped);
+    if (cardDetails.isFlipped || cardDetails.isMatched || disabled) return;
 
     // check length of flippedCards array
     const cardId = cardDetails.id;
-    //2 conditions to ignore the clickon a card if (1) clicking is disabled because the card is already matched or (2) the card is already flipped
+
     if (disabled) return; // do nothing if clicking is disabled
-    // if (flippedCards.find((card) => card.id === cardId)) return; // do nothing if the card is already flipped
-    console.log("disabled", disabled);
 
-    // to flip the card when clicking on it
-
+    // Flip the clicked card by updating its isFlipped property
     const openCards = gameCardsCollection.map((card) => {
-      // console.log("Card in map 101", card);
-
       if (card.id === cardId) {
-        // card.isFlipped = true;
         return { ...card, isFlipped: true };
       }
       return card;
     });
 
     setFlippedCards((prev) => [...prev, cardDetails]);
-    // console.log("flippedCards", flippedCards);
 
-    // console.log("card", openCards);
     setGameCardsCollection(openCards);
-
-    // console.log(gameCardsCollection);
   }
 
   /** Reset the Game  */
@@ -151,6 +130,7 @@ function GameBoard() {
     setDisabled(false);
   }
 
+  // ------- RENDERING LOGIC -------
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error...</div>;
 

@@ -1,5 +1,10 @@
 import React from "react";
 
+/**
+ * PlayAgainButton Component
+ * Renders a button that allows the user to play the game again.
+ */
+
 function PlayAgainButton({ onClick }) {
   return (
     <button

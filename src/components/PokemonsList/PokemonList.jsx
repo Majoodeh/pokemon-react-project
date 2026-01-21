@@ -1,17 +1,24 @@
 import React, { useEffect } from "react";
-import Type from "./Type.jsx";
 import Navbar from "../Navbar/Navbar.jsx";
 import Pagination from "./Pagination.jsx";
 import Message from "./Message.jsx";
 import PokemonCard from "./PokemonCard.jsx";
 import useFetchUrl from "../Hooks/useFetchUrl.js";
 
+/** * PokemonList Component
+ * Fetches and displays a paginated list of Pokémon.
+ */
+
 function PokemonList() {
+  //  ------- State Management && Data Fetching --------
+
+  // URL state to manage pagination
   const [URL, setURL] = React.useState(
     "https://pokeapi.co/api/v2/pokemon?limit=20&offset=0"
   );
-  const { data, loading, error } = useFetchUrl(URL);
+  const { data, loading, error } = useFetchUrl(URL); // Fetch Pokémon list data
 
+  // Scroll to top when data changes (when navigating pages)
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [data]);

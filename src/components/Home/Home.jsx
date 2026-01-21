@@ -7,6 +7,10 @@ import homeImage from "../../imgs/image_5.svg";
 import Navbar from "../Navbar/Navbar.jsx";
 import { Link } from "react-router-dom";
 
+/** * Home Component
+ * Renders the home page with navigation to the Pokémon collection and memory game.
+ */
+
 function Home() {
   return (
     <div>

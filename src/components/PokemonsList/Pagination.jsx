@@ -1,3 +1,7 @@
+/** * Pagination Component
+ * Renders pagination buttons to navigate between pages of Pokémon data.
+ */
+
 function Pagination({ next, prev, onPageChange }) {
   return (
     <div className="flex justify-center items-center gap-6 my-12">

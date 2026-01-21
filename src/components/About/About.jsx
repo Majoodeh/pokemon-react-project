@@ -1,6 +1,10 @@
 import React from "react";
 import Navbar from "../Navbar/Navbar.jsx";
 
+/** * About Component
+ * Displays information about the platform, its mission, and the game.
+ */
+
 const About = () => {
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-purple-400 to-pink-300">

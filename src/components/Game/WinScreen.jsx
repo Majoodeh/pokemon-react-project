@@ -2,6 +2,11 @@ import React from "react";
 import PlayAgainButton from "./PlayAgainButton";
 import trophyImg from "../../imgs/trophy.png";
 
+/**
+ * WinScreen Component
+ * Displays a victory message and a button to play again when the user wins the game.
+ */
+
 function WinScreen({ onReset }) {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/80 backdrop-blur-xl p-4">

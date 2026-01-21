@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 
+/**  Custom hook to fetch data from a given URL or array of URLs.
+ * Manages loading and error states.
+ */
+
 function useFetchUrl(url) {
   if (!url) {
     throw new Error("URL is required");

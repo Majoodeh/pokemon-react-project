@@ -3,10 +3,16 @@ import Type from "./Type.jsx";
 import useFetchUrl from "../Hooks/useFetchUrl.js";
 import { Link } from "react-router-dom";
 
+/** * PokemonCard Component
+ * Renders a card displaying a Pokémon's image, name, and types.
+ */
 function PokemonCard({ name, url, onClick }) {
-  const { data, loading, error } = useFetchUrl(url);
-  const image = data?.sprites?.other?.["official-artwork"].front_default;
-  const types = data?.types;
+  //  -------- STATE MANAGEMENT FOR FETCHING POKEMON DATA --------
+  const { data, loading, error } = useFetchUrl(url); // Fetch detailed Pokémon data
+
+  // Extract relevant data
+  const image = data?.sprites?.other?.["official-artwork"].front_default; // Official artwork image
+  const types = data?.types; // Array of types
 
   return (
     <Link to={`${name}`} className="block h-full">

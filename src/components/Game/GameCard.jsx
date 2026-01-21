@@ -2,13 +2,14 @@ import ReactCardFlip from "react-card-flip";
 import pokeballImg from "../../imgs/pokeball.png";
 
 function GameCard(props) {
-  const { name, imageUrl, id, isFlipped, flipCard, onClick } = props;
+  const { name, imageUrl, id, isFlipped, isMatched, onClick } = props;
   return (
     <div
       className="flex justify-center items-center h-60 w-60"
       name={name}
-      onClick={onClick}
+      onClick={isMatched ? null : onClick}
       data-id={id}
+      data-Matched={isMatched}
     >
       <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
         <div

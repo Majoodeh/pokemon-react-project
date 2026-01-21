@@ -7,7 +7,7 @@ function GameCard(props) {
   return (
     <div
       className="relative w-full h-full aspect-square cursor-pointer"
-      onClick={onClick}
+     onClick={isMatched ? null : onClick}
       data-id={id}
     >
       <ReactCardFlip

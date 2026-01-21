@@ -1,13 +1,12 @@
 import React from "react";
 
-function Type(props) {
+function Type({ type }) {
   return (
-    <div className="flex justify-center w-full">
-      <div className="bg-orange-400 px-8 py-2 rounded-full shadow-md">
-        <span className="text-white text-lg md:text-xl font-normal font-['Lemon']">
-          {props.type}
-        </span>
-      </div>
+    /* Removed the outer w-full div so types can sit side-by-side */
+    <div className="bg-orange-400 px-4 py-1 rounded-full shadow-sm">
+      <span className="text-white text-sm md:text-base font-normal font-['Lemon'] capitalize">
+        {type}
+      </span>
     </div>
   );
 }

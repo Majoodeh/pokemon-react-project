@@ -108,9 +108,10 @@ function GameBoard() {
 
     const openCards = gameCardsCollection.map((card) => {
       // console.log("Card in map 101", card);
+
       if (card.id === cardId) {
         // card.isFlipped = true;
-        card.isFlipped = !card.isFlipped;
+        return { ...card, isFlipped: true };
       }
       return card;
     });

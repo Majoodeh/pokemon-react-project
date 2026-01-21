@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Type from "./Type.jsx";
 import Navbar from "../Navbar/Navbar.jsx";
 import Pagination from "./Pagination.jsx";
@@ -12,6 +12,10 @@ function PokemonList() {
     "https://pokeapi.co/api/v2/pokemon?limit=20&offset=0"
   );
   const { data, loading, error } = useFetchUrl(URL);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [data]);
 
   if (loading) {
     return (

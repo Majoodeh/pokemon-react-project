@@ -3,28 +3,29 @@ import PlayAgainButton from "./PlayAgainButton";
 import trophyImg from "../../imgs/trophy.png";
 
 function WinScreen({ onReset }) {
-  // You can replace this URL with any trophy or victory image you like
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md">
-      <div className="bg-white p-8 rounded-3xl shadow-2xl border-b-8 border-yellow-500 text-center max-w-sm w-full mx-4 animate-ing zoom-in duration-300">
-        {/* The Image Tag */}
-        <div className="flex justify-center mb-6">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/80 backdrop-blur-xl p-4">
+      <div className="relative bg-slate-900 border-2 border-yellow-500/50 p-10 rounded-[2.5rem] shadow-[0_0_50px_rgba(234,179,8,0.2)] text-center max-w-lg w-full">
+        <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-yellow-500 p-4 rounded-full shadow-xl">
           <img
             src={trophyImg}
             alt="Victory Trophy"
-            className="w-32 h-32 object-contain "
+            className="w-20 h-20 object-contain"
           />
         </div>
 
-        <h2 className="text-4xl font-black text-gray-800 mb-2">VICTORY!</h2>
+        <div className="mt-12 space-y-4">
+          <h2 className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-yellow-200 to-yellow-500 tracking-tighter">
+            YOU WON!
+          </h2>
 
-        <p className="text-gray-500 mb-8 font-medium">
-          You matched all the Pokémon!
-        </p>
+          <p className="text-slate-400 text-lg font-semibold uppercase tracking-widest">
+            You are now a Pokémon Master!
+          </p>
 
-        <div className="flex justify-center">
-          <PlayAgainButton onClick={onReset} />
+          <div className="pt-6 flex justify-center">
+            <PlayAgainButton onClick={onReset} />
+          </div>
         </div>
       </div>
     </div>

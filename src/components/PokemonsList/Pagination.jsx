@@ -1,30 +1,30 @@
 function Pagination({ next, prev, onPageChange }) {
   return (
-    <div className="  flex justify-center items-center gap-4 my-8">
-      {/* Previous Button */}
+    <div className="flex justify-center items-center gap-6 my-12">
       <button
         onClick={() => onPageChange(prev)}
         disabled={!prev}
-        className={` cursor-pointer px-4 py-2 rounded-lg font-medium transition-colors ${
+        className={` cursor-pointer group relative flex items-center gap-2 px-8 py-3 rounded-2xl font-black uppercase tracking-widest transition-all duration-300 ${
           !prev
-            ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-            : "bg-blue-500 text-white hover:bg-blue-600 active:bg-blue-700"
+            ? "bg-white/10 text-white/20 cursor-not-allowed border border-white/5"
+            : "bg-white text-slate-900 hover:bg-yellow-400 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.2)]"
         }`}
       >
-        &larr; Previous
+        <span className="text-xl">←</span>
+        <span>Prev</span>
       </button>
 
-      {/* Next Button */}
       <button
         onClick={() => onPageChange(next)}
         disabled={!next}
-        className={`cursor-pointer px-4 py-2 rounded-lg font-medium transition-colors ${
+        className={` cursor-pointer  group relative flex items-center gap-2 px-8 py-3 rounded-2xl font-black uppercase tracking-widest transition-all duration-300 ${
           !next
-            ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-            : "bg-blue-500 text-white hover:bg-blue-600 active:bg-blue-700"
+            ? "bg-white/10 text-white/20 cursor-not-allowed border border-white/5"
+            : "bg-white text-slate-900 hover:bg-yellow-400 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.2)]"
         }`}
       >
-        Next &rarr;
+        <span>Next</span>
+        <span className="text-xl">→</span>
       </button>
     </div>
   );

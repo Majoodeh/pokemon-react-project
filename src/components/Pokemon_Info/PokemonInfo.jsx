@@ -7,17 +7,23 @@ import Type from "../PokemonsList/Type.jsx";
 
 function PokemonInfo() {
   const { pokemonName } = useParams();
-
   const URL = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`;
-
   const { data, loading, error } = useFetchUrl(URL);
 
   if (loading) {
-    return <Message message={"Products are loading..."} />;
+    return (
+      <div className="h-screen w-full bg-gradient-to-br from-purple-400 to-pink-300 flex items-center justify-center">
+        <Message message={"Analyzing Pokémon DNA..."} />
+      </div>
+    );
   }
 
   if (error) {
-    return <Message message={error} />;
+    return (
+      <div className="h-screen w-full bg-gradient-to-br from-purple-400 to-pink-300 flex items-center justify-center">
+        <Message message={error} />
+      </div>
+    );
   }
 
   const pokemonData = {
@@ -30,63 +36,72 @@ function PokemonInfo() {
   };
 
   return (
-    <>
+    <div className="min-h-screen w-full bg-gradient-to-br from-purple-400 to-pink-300 pb-12">
       <Navbar />
-      <div className="max-w-4xl mx-auto p-6">
-        {/* Back Button */}
-        <Link to="/pokemon">
-          <button className="mb-6 text-blue-500 hover:text-blue-700 font-medium flex items-center gap-2 cursor-pointer">
-            &larr; Back to List
-          </button>
+      <div className="max-w-5xl mx-auto p-4 md:p-12">
+        <Link
+          to="/pokemon"
+          className="group inline-flex items-center gap-2 mb-8 text-white font-black uppercase tracking-widest text-sm hover:text-yellow-300 transition-colors"
+        >
+          <span className="text-2xl group-hover:-translate-x-2 transition-transform">
+            ←
+          </span>
+          Back to Pokedex
         </Link>
 
-        <div className="bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row border border-gray-100">
-          {/* Left Side: Image Section */}
-          <div className="bg-gray-50 md:w-1/2 flex justify-center items-center p-10">
+        <div className="bg-white/20 backdrop-blur-xl rounded-[3rem] shadow-2xl overflow-hidden flex flex-col md:flex-row border border-white/30">
+          <div className="bg-slate-900/10 md:w-1/2 flex justify-center items-center p-12 relative overflow-hidden group">
+            <div className="absolute w-64 h-64 bg-white/20 rounded-full blur-3xl animate-pulse"></div>
             <img
               src={pokemonData.image}
               alt={pokemonData.name}
-              className="w-full max-w-[300px] drop-shadow-2xl"
+              className="relative z-10 w-full max-w-[350px] drop-shadow-[0_20px_50px_rgba(0,0,0,0.3)] group-hover:scale-105 transition-transform duration-700"
             />
           </div>
 
-          {/* Right Side: Info Section */}
-          <div className="p-8 md:w-1/2">
-            <h1 className="text-4xl font-bold capitalize mb-6 text-gray-800">
+          <div className="p-10 md:w-1/2 flex flex-col justify-center bg-white/10">
+            <h1 className="text-5xl md:text-6xl font-black capitalize mb-6 text-white tracking-tighter drop-shadow-md">
               {pokemonData.name}
             </h1>
 
-            <div className="space-y-6">
-              {/* Types */}
-              <div className="flex gap-2">
+            <div className="space-y-8">
+              <div className="flex flex-wrap gap-3">
                 {pokemonData.types &&
                   pokemonData.types.map((type, index) => (
                     <Type key={index} type={type} />
                   ))}
               </div>
 
-              {/* Stats Grid */}
-              <div className="grid grid-cols-2 gap-4 border-t border-b py-6">
+              <div className="grid grid-cols-2 gap-8 border-y border-white/20 py-8">
                 <div>
-                  <p className="text-gray-400 text-sm uppercase">Height</p>
-                  <p className="font-bold text-lg">{pokemonData.height}</p>
+                  <p className="text-white/60 text-xs font-black uppercase tracking-[0.2em] mb-1">
+                    Height
+                  </p>
+                  <p className="font-bold text-3xl text-white">
+                    {pokemonData.height / 10}
+                    <span className="text-sm ml-1 opacity-50">M</span>
+                  </p>
                 </div>
                 <div>
-                  <p className="text-gray-400 text-sm uppercase">Weight</p>
-                  <p className="font-bold text-lg">{pokemonData.weight} </p>
+                  <p className="text-white/60 text-xs font-black uppercase tracking-[0.2em] mb-1">
+                    Weight
+                  </p>
+                  <p className="font-bold text-3xl text-white">
+                    {pokemonData.weight / 10}
+                    <span className="text-sm ml-1 opacity-50">KG</span>
+                  </p>
                 </div>
               </div>
 
-              {/* Abilities */}
               <div>
-                <p className="text-gray-400 text-sm uppercase mb-2">
-                  Abilities
+                <p className="text-white/60 text-xs font-black uppercase tracking-[0.2em] mb-4">
+                  Special Abilities
                 </p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-3">
                   {pokemonData.abilities.map((ability, index) => (
                     <span
                       key={index + 1}
-                      className="bg-gray-100 px-3 py-1 rounded text-gray-700 text-sm italic"
+                      className="bg-slate-900/40 backdrop-blur-md px-5 py-2 rounded-xl text-white text-sm font-bold border border-white/10 uppercase tracking-wider"
                     >
                       {ability}
                     </span>
@@ -97,7 +112,7 @@ function PokemonInfo() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

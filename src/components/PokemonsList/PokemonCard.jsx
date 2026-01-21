@@ -5,40 +5,43 @@ import { Link } from "react-router-dom";
 
 function PokemonCard({ name, url, onClick }) {
   const { data, loading, error } = useFetchUrl(url);
-  // Name to first letter uppercase
-  const capitalizeFirstLetter = name.charAt(0).toUpperCase() + name.slice(1);
   const image = data?.sprites?.other?.["official-artwork"].front_default;
   const types = data?.types;
 
   return (
-    <Link to={`${name}`}>
+    <Link to={`${name}`} className="block h-full">
       <div
         onClick={onClick}
-        className=" cursor-pointer w-full max-w-[350px] h-fit bg-white rounded-[2.5rem] border border-neutral-100 shadow-sm flex flex-col items-center p-8 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 group"
+        className="group relative h-full w-full bg-white/20 backdrop-blur-md rounded-4xl border border-white/30 shadow-xl flex flex-col items-center p-6 transition-all duration-300 hover:bg-white/30 hover:-translate-y-2 hover:shadow-2xl overflow-hidden"
       >
-        {/*  Image Container */}
+        <div className="absolute -top-10 -right-10 w-24 h-24 bg-white/10 rounded-full blur-2xl group-hover:bg-white/20 transition-colors"></div>
 
-        <div className="w-full flex justify-center items-center mb-6">
-          <div className="w-32 h-32 md:w-48 md:h-48 flex items-center justify-center overflow-hidden bg-transparent">
+        {/* Image Container */}
+        <div className="relative w-full aspect-square flex items-center justify-center mb-4 bg-slate-900/10 rounded-2xl overflow-hidden">
+          {loading ? (
+            <div className="w-12 h-12 border-4 border-white/20 border-t-white rounded-full animate-spin"></div>
+          ) : (
             <img
               src={image}
-              className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110 drop-shadow-md"
+              className="w-[80%] h-[80%] object-contain transition-transform duration-500 group-hover:scale-110 drop-shadow-2xl"
               alt={name}
             />
-          </div>
+          )}
         </div>
 
         {/* Text Content */}
-        <div className="flex flex-col items-center gap-5 w-full">
-          <h3 className="text-indigo-950 text-2xl md:text-3xl font-normal font-['Lemon'] leading-tight whitespace-nowrap capitalize">
+        <div className="flex flex-col items-center gap-3 w-full">
+          <h3 className="text-white text-xl md:text-2xl font-black tracking-tight capitalize drop-shadow-sm">
             {name}
           </h3>
 
-          {/* Type  */}
-          <div className="w-full flex flex-wrap justify-center items-center gap-2">
+          {/* Types */}
+          <div className="w-full flex flex-wrap justify-center items-center gap-1.5">
             {types &&
               types.map((type, index) => (
-                <Type key={index} type={type.type.name} />
+                <div key={index} className="scale-90">
+                  <Type type={type.type.name} />
+                </div>
               ))}
           </div>
         </div>

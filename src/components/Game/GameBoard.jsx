@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../Navbar/Navbar.jsx";
 import GameCard from "./GameCard.jsx";
-import { mockPokemons } from "../../data/pokemonsDataShorList.js";
 import PlayAgainButton from "./PlayAgainButton.jsx";
 import WinScreen from "./WinScreen.jsx";
 import useFetchUrl from "../Hooks/useFetchUrl.js";
 // Utility function to duplicate and shuffle the array
 function getDoubleShuffleArray(arr) {
-  // this function will take the pokemon array and then return a new array with each pokemon duplicated and shuffled randomly
-  const pairedCards = [...arr, ...arr].map((item) => ({ ...item })); // map,because without it it will copy the refernce only and changing one will change the other also and both will share the same id ..
+  // Function to duplicate and shuffle the array
+  const pairedCards = [...arr, ...arr].map((item) => ({ ...item }));
 
   // Give unique ids and keys to each item
   for (let i = 0; i < pairedCards.length; i++) {
     pairedCards[i].id = i + 1;
   }
-  //! Imoortant code, just comment it to test the game easily DONT DELETE
+
   // Shuffling the pairedCards array using Fisher-Yates Shuffle Algorithm
   for (let i = pairedCards.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
@@ -27,7 +26,7 @@ function getDoubleShuffleArray(arr) {
 function GameBoard() {
   const [offset] = useState(() => Math.floor(Math.random() * 1000));
   const { data, loading, error } = useFetchUrl(
-    `https://pokeapi.co/api/v2/pokemon?limit=4&offset=${offset}`
+    `https://pokeapi.co/api/v2/pokemon?limit=8&offset=${offset}`
   );
 
   const [gameCardsCollection, setGameCardsCollection] = useState([]); //  gameCardsCollection is an array that holds all the cards for the game board
@@ -164,26 +163,47 @@ function GameBoard() {
       return (
         <>
           <Navbar />
-          <div>GameBoard</div>
-          <div className="grid grid-cols-4 gap-4 p-4">
-            {gameCardsCollection.map((card) => {
-              return (
-                <GameCard
-                  key={card.key}
-                  {...card}
-                  onClick={() => handleClick(card)}
-                />
-              );
-            })}
-          </div>
-          <PlayAgainButton onClick={() => resetGame()} />
+          <div className="h-[calc(100vh-(--spacing(24)))] w-full bg-slate-900 flex items-center justify-center p-4 md:p-8 overflow-hidden">
+            <div className="flex flex-col lg:flex-row items-center justify-center gap-8 w-full max-w-7xl h-full">
+              {/* Sidebar: Title & Controls */}
+              <div className="flex flex-col items-center lg:items-start space-y-6 lg:w-1/4">
+                <div className="text-center lg:text-left">
+                  <h1 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 drop-shadow-sm">
+                    POKÉMON
+                  </h1>
+                  <h2 className="text-xl md:text-2xl font-bold text-white tracking-widest uppercase">
+                    Memory Game
+                  </h2>
+                </div>
+                <PlayAgainButton onClick={() => resetGame()} />
+              </div>
 
-          {/* {isWin ? <WinScreen onReset={() => resetGame()} /> : null} */}
+              {/* Game Board  */}
+              <div className="relative p-1 rounded-3xl bg-gradient-to-tr from-purple-500 via-pink-500 to-yellow-500 shadow-[0_0_50px_rgba(192,38,211,0.2)]">
+                <div className="bg-slate-900 rounded-[22px] p-3 md:p-6">
+                  <div
+                    className="grid grid-cols-4 grid-rows-4 gap-2 md:gap-4 
+                       w-[85vw] h-[85vw] 
+                       sm:w-[70vw] sm:h-[70vw] 
+                       lg:w-[75vh] lg:h-[75vh] 
+                       max-w-[600px] max-h-[600px]"
+                  >
+                    {gameCardsCollection.map((card) => (
+                      <GameCard
+                        key={card.key}
+                        {...card}
+                        onClick={() => handleClick(card)}
+                        className="w-full h-full object-contain"
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </>
       );
     }
-  } else {
-    return <div>Game Is Loading ...</div>; //! Needs to be changed later ....
   }
 }
 
